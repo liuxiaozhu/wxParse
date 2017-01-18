@@ -65,6 +65,12 @@ function HTMLParser(html, handler) {
 					chars = false;
 				}
 
+				// 简单处理一下'<中文>'及'<<span'情况，直接删除第一个'<'
+			}else if(html.match( /^<[\u4e00-\u9fa5]/)
+				||html.indexOf("<<")==0){
+				html = html.substring(1);
+				chars = true;
+				
 				// start tag
 			} else if (html.indexOf("<") == 0) {
 				match = html.match(startTag);
